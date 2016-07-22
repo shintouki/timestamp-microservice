@@ -1,14 +1,24 @@
 {
   "name": "timestamp-microservice",
   "version": "1.0.0",
-  "description": "",
+  "description": "Timestamp microservice",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "Ted",
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shintouki/timestamp-microservice.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shintouki/timestamp-microservice/issues"
+  },
+  "homepage": "https://github.com/shintouki/timestamp-microservice#readme"
 }

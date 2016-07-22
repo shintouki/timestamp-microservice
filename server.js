@@ -130,5 +130,5 @@ app.get('*', function(req, res){
 });
 
 app.listen(port, function () {
-  console.log('Example app listening on port 8080!');
+  console.log('App is running on port ' + port);
 });
