@@ -59,20 +59,20 @@ app.get(reg, function(req, res) {
   console.log(year);
   if (year < 10) {
     year = "200" + year;
-    console.log("a");
+    // console.log("a");
   }
   else if (year < 50) {
     year = "20" + year;
-    console.log("b");
+    // console.log("b");
   }
   else if (year < 100) {
     year = "19" + year;
-    console.log("c");
+    // console.log("c");
   }
   
-  console.log(month);
-  console.log(day);
-  console.log(year);
+  // console.log(month);
+  // console.log(day);
+  // console.log(year);
   
   var monthNum;
   if (isNaN(month)) {
@@ -83,13 +83,13 @@ app.get(reg, function(req, res) {
   }
   
   var dateObject = new Date(year, monthNum-1, day);
-  console.log("date:" + dateObject);
+  // console.log("date:" + dateObject);
   
   var naturalDate = monthDictionary[month] + " " + day + ", " + year;
   var unixDate = dateObject.getTime() / 1000;
   
-  console.log(naturalDate);
-  console.log(unixDate);
+  // console.log(naturalDate);
+  // console.log(unixDate);
   
   var output = {
     "unix": unixDate,
@@ -103,7 +103,7 @@ var unixRegex = new RegExp("^/\\d+$");
 
 app.get(unixRegex, function (req, res) {
   var url_ = req.url;
-  console.log(url_);
+  // console.log(url_);
   var unixDate = url_.substr(1);
   var unformattedNaturalDate = moment.unix(unixDate).format("MM/DD/YYYY");
   var month = unformattedNaturalDate.substr(0,2);
