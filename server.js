@@ -1,10 +1,13 @@
 var express = require('express');
 var pattern = require('url-pattern');
+var moment = require('moment');
 
 var app = express();
 
+app.use("/", express.static(__dirname + '/'));
+
 app.get('/', function (req, res) {
-  res.send('Timestamp Microservice');
+  res.sendFile(__dirname + '/index.html');
   
 });
 
@@ -46,7 +49,6 @@ app.get(reg, function(req, res) {
   var url_ = req.url;
   var match = reg.exec(url_);
   
-  // console.log(match);
   var month = match[1];
   var day = match[2];
   var year = match[3];
@@ -93,6 +95,28 @@ app.get(reg, function(req, res) {
   }
   
   res.send(output);
+});
+
+var unixRegex = new RegExp("^/\\d+$");
+
+app.get(unixRegex, function (req, res) {
+  var url_ = req.url;
+  console.log(url_);
+  var unixDate = url_.substr(1);
+  var unformattedNaturalDate = moment.unix(unixDate).format("MM/DD/YYYY");
+  var month = unformattedNaturalDate.substr(0,2);
+  var day = unformattedNaturalDate.substr(3,2);
+  var year = unformattedNaturalDate.substr(6);
+  
+  var naturalDate = monthDictionary[month] + " " + day + ", " + year;
+  
+  var output = {
+    "unix": unixDate,
+    "natural": naturalDate
+  };
+  
+  res.send(output);
+  
 });
 
 app.get('*', function(req, res){
