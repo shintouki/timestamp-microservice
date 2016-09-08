@@ -1,5 +1,4 @@
 var express = require('express');
-// var pattern = require('url-pattern');
 var moment = require('moment');
 
 var app = express();
@@ -21,12 +20,7 @@ var monthsReg = "(" + ["jan", "feb", "mar", "apr", "may", "jun",
              ].join("|") + "|(?:[1-9]|1[0-2]))";
 
 var reStr = "^/" + monthsReg + "(?:%20|-)([1-2]?[1-9]|3[0-1])(?:%20|-)(\\d{1,4})$";
-
-// console.log(reStr);
-
 var reg = new RegExp(reStr, "i");
-// console.log(reg.exec('/dec%205%2015'));
-
 
 var monthDictionary = {"1": "January", "2": "February", "3": "March", "4": "April",
                        "5": "May", "6": "June", "7": "July", "8": "August", "9": "September",
@@ -34,6 +28,9 @@ var monthDictionary = {"1": "January", "2": "February", "3": "March", "4": "Apri
                        "jan": "January", "feb": "February", "mar": "March", "apr": "April",
                        "jun": "June", "jul": "July", "aug": "August", "sept": "September",
                        "oct": "October", "nov": "November", "dec": "December",
+                       "Jan": "January", "Feb": "February", "Mar": "March", "Apr": "April",
+                       "Jun": "June", "Jul": "July", "Aug": "August", "Sept": "September",
+                       "Oct": "October", "Nov": "November", "Dec": "December",
                        "january": "January", "february": "February", "march": "March", "april": "April",
                        "may": "May", "june": "June", "july": "July", "august": "August", "september": "September",
                        "october": "October", "november": "November", "december": "December",
@@ -59,20 +56,13 @@ app.get(reg, function(req, res) {
   console.log(year);
   if (year < 10) {
     year = "200" + year;
-    // console.log("a");
   }
   else if (year < 50) {
     year = "20" + year;
-    // console.log("b");
   }
   else if (year < 100) {
     year = "19" + year;
-    // console.log("c");
   }
-  
-  // console.log(month);
-  // console.log(day);
-  // console.log(year);
   
   var monthNum;
   if (isNaN(month)) {
@@ -83,13 +73,8 @@ app.get(reg, function(req, res) {
   }
   
   var dateObject = new Date(year, monthNum-1, day);
-  // console.log("date:" + dateObject);
-  
   var naturalDate = monthDictionary[month] + " " + day + ", " + year;
   var unixDate = dateObject.getTime() / 1000;
-  
-  // console.log(naturalDate);
-  // console.log(unixDate);
   
   var output = {
     "unix": unixDate,
@@ -103,13 +88,11 @@ var unixRegex = new RegExp("^/\\d+$");
 
 app.get(unixRegex, function (req, res) {
   var url_ = req.url;
-  // console.log(url_);
   var unixDate = url_.substr(1);
   var unformattedNaturalDate = moment.unix(unixDate).format("MM/DD/YYYY");
   var month = unformattedNaturalDate.substr(0,2);
   var day = unformattedNaturalDate.substr(3,2);
   var year = unformattedNaturalDate.substr(6);
-  
   var naturalDate = monthDictionary[month] + " " + day + ", " + year;
   
   var output = {

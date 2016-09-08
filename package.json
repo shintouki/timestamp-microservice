@@ -10,8 +10,8 @@
   "author": "Ted",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.14.0",
-    "moment": "^2.14.1"
+    "express": "~4.14.0",
+    "moment": "~2.14.1"
   },
   "devDependencies": {},
   "repository": {
